@@ -7,21 +7,17 @@
 
 import Foundation
 
-enum DecodingError: Error {
-    case invalidType
-}
-
 struct FBArgumentsDecoder: Decoder {
 
-    let arguments: [String: String]
+    let storage: ArgumentValueStorage
 
     var codingPath: [CodingKey] = []
     var userInfo: [CodingUserInfoKey : Any] = [:]
 
     // MARK: - Public
 
-    func value(for key: String) -> String? {
-        arguments[key]
+    func value(for key: FBInputKey) -> Any? {
+        storage.value(for: key)
     }
 
     // MARK: - Decoder
@@ -77,7 +73,7 @@ struct SingleValueContainer: SingleValueDecodingContainer {
 
     func decode<T>(_ type: T.Type) throws -> T where T : Decodable {
       guard let element = parsedElement as? T else {
-          throw DecodingError.invalidType
+          throw ParserError.unknownKey
       }
       return element
     }
@@ -91,8 +87,12 @@ class KeyeredArgumentContainer<K: CodingKey>: KeyedDecodingContainerProtocol {
         self.decoder = decoder
     }
 
+    func decodeIfPresent<T>(_ type: T.Type, forKey key: K) throws -> T? where T : Decodable {
+        decoder.value(for: FBInputKey(key)) as? T
+    }
+
     func decode<T>(_ type: T.Type, forKey key: K) throws -> T where T : Decodable {
-        let value = decoder.value(for: key.stringValue)
+        let value = decoder.value(for: FBInputKey(key))
         if let element = value as? T {
             return element
         } else {
@@ -102,7 +102,7 @@ class KeyeredArgumentContainer<K: CodingKey>: KeyedDecodingContainerProtocol {
     }
 
     func contains(_ key: K) -> Bool {
-        decoder.value(for: key.stringValue) != nil
+        decoder.value(for: FBInputKey(key)) != nil
     }
 
     func decodeNil(forKey key: K) throws -> Bool {
@@ -124,6 +124,7 @@ class KeyeredArgumentContainer<K: CodingKey>: KeyedDecodingContainerProtocol {
     func superDecoder(forKey key: K) throws -> Decoder {
         fatalError()
     }
+
 
     var codingPath: [CodingKey] = []
 

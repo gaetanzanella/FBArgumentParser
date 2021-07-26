@@ -10,6 +10,9 @@ import Foundation
 
 struct FBRepeat: FBParsableCommand {
 
+    @FBOption
+    var count: Int?
+
     @FBOption()
     var requiredPhrase: String
 
@@ -17,7 +20,7 @@ struct FBRepeat: FBParsableCommand {
     var optionalPhrase: String = "hello"
 
     mutating func run() throws {
-        for _ in 1...2 {
+        for _ in 1...(count ?? 2) {
             print(requiredPhrase)
             print(optionalPhrase)
         }

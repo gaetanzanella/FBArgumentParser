@@ -7,59 +7,103 @@
 
 import Foundation
 
-struct FBArgumentDefinition {
-    let isOptional: Bool
-    let defaultValue: String?
-    let help: String?
-}
-
 @propertyWrapper
-public struct FBOption {
+public struct FBOption<Value> {
 
     enum State {
-        case definition(FBArgumentDefinition)
-        case resolved(String)
+        case resolved(Value)
+        case defined((FBInputKey) -> FBArgumentDefinition)
     }
 
-    public var wrappedValue: String {
+    let state: State
+
+    public var wrappedValue: Value {
         switch state {
-            case let .resolved(value):
-                return value
-            case .definition:
-                fatalError("Do not instantiate commands yourself, use FBParsableCommand.main instead.")
+        case let .resolved(value):
+            return value
+        case .defined:
+            fatalError()
         }
     }
 
-    private let state: State
+    @available(*, unavailable, message: "A default value must be provided unless the value type conforms to ExpressibleByArgument.")
+    public init() {
+      fatalError("unavailable")
+    }
+
+    public init<T: FBExpressibleByArgument>(help: String? = nil) where Value == T? {
+        self.state = .defined { key in
+            FBArgumentDefinition(
+                key: key,
+                help: help,
+                isOptional: true,
+                defaultValue: nil,
+                initial: { _ in },
+                update: { valueString, storage in
+                    guard let value = T(argument: valueString) else { return }
+                    storage.addValue(value, for: key)
+                }
+            )
+        }
+    }
+}
+
+extension FBOption where Value: FBExpressibleByArgument {
+
+    public init(help: String? = nil) {
+        self.state = .defined { key in
+            FBArgumentDefinition(
+                key: key,
+                help: help,
+                isOptional: false,
+                defaultValue: nil,
+                initial: { _ in },
+                update: { valueString, storage in
+                    guard let value = Value(argument: valueString) else { return }
+                    storage.addValue(value, for: key)
+                }
+            )
+        }
+    }
+
+    public init(wrappedValue: Value, help: String? = nil) {
+        self.state = .defined { key in
+            FBArgumentDefinition(
+                key: key,
+                help: help,
+                isOptional: true,
+                defaultValue: "\(wrappedValue)",
+                initial: { values in
+                    values.addValue(wrappedValue as Any, for: key)
+                },
+                update: { valueString, storage in
+                    guard let value = Value(argument: valueString) else { return }
+                    storage.addValue(value, for: key)
+                }
+            )
+        }
+    }
 }
 
 extension FBOption: Decodable {
 
     public init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        state = .resolved(try container.decode(String.self))
+        guard let d = decoder as? SingleValueDecoder,
+              let value = d.parsedElement as? Value else {
+          throw ParserError.invalidState
+        }
+        state = .resolved(value)
     }
 }
 
-public extension FBOption  {
+extension FBOption: ArgumentDefinitionProvider {
 
-    init(wrappedValue: String, help: String? = nil) {
-        self.state = .definition(FBArgumentDefinition(isOptional: true, defaultValue: wrappedValue, help: help))
-    }
-
-    init(help: String? = nil) {
-        self.state = .definition(FBArgumentDefinition(isOptional: false, defaultValue: nil, help: help))
-    }
-}
-
-extension FBOption {
-
-    func definition() -> FBArgumentDefinition? {
+    func argumentDefinition(for key: FBInputKey) -> FBArgumentDefinition {
         switch state {
-            case let .definition(definition):
-                return definition
-            case .resolved:
-                fatalError("FBArgument is already decoded")
+        case .resolved:
+            fatalError()
+        case let .defined(provider):
+            return provider(key)
         }
     }
 }

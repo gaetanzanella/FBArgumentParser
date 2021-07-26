@@ -15,6 +15,14 @@
 		E7923D7F26AEC67C0028F6A1 /* FBOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7923D7B26AEC67C0028F6A1 /* FBOption.swift */; };
 		E7923D8226AEC6880028F6A1 /* FBArgumentParser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7923D6E26AEC66E0028F6A1 /* FBArgumentParser.framework */; };
 		E7923D8326AEC6880028F6A1 /* FBArgumentParser.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E7923D6E26AEC66E0028F6A1 /* FBArgumentParser.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E7923D9126AEE4260028F6A1 /* FBArgumentSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7923D9026AEE4260028F6A1 /* FBArgumentSet.swift */; };
+		E7923D9526AEE6D50028F6A1 /* FBSplitArguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7923D9426AEE6D50028F6A1 /* FBSplitArguments.swift */; };
+		E7923D9826AEE6E70028F6A1 /* ArgumentValueStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7923D9726AEE6E70028F6A1 /* ArgumentValueStorage.swift */; };
+		E7923D9D26AEE6F50028F6A1 /* FBInputKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7923D9C26AEE6F50028F6A1 /* FBInputKey.swift */; };
+		E7923DA126AEE73A0028F6A1 /* HelpGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7923DA026AEE73A0028F6A1 /* HelpGenerator.swift */; };
+		E7923DA926AEE7960028F6A1 /* FBArgumentDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7923DA326AEE75D0028F6A1 /* FBArgumentDefinition.swift */; };
+		E7923DAC26AEE7DD0028F6A1 /* ParserError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7923DAB26AEE7DD0028F6A1 /* ParserError.swift */; };
+		E7923DB026AEE84A0028F6A1 /* FBExpressibleByArgument.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7923DAF26AEE84A0028F6A1 /* FBExpressibleByArgument.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +68,14 @@
 		E7923D7926AEC67C0028F6A1 /* FBParsableCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBParsableCommand.swift; sourceTree = "<group>"; };
 		E7923D7A26AEC67C0028F6A1 /* FBArgumentsDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBArgumentsDecoder.swift; sourceTree = "<group>"; };
 		E7923D7B26AEC67C0028F6A1 /* FBOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBOption.swift; sourceTree = "<group>"; };
+		E7923D9026AEE4260028F6A1 /* FBArgumentSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBArgumentSet.swift; sourceTree = "<group>"; };
+		E7923D9426AEE6D50028F6A1 /* FBSplitArguments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBSplitArguments.swift; sourceTree = "<group>"; };
+		E7923D9726AEE6E70028F6A1 /* ArgumentValueStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentValueStorage.swift; sourceTree = "<group>"; };
+		E7923D9C26AEE6F50028F6A1 /* FBInputKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBInputKey.swift; sourceTree = "<group>"; };
+		E7923DA026AEE73A0028F6A1 /* HelpGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpGenerator.swift; sourceTree = "<group>"; };
+		E7923DA326AEE75D0028F6A1 /* FBArgumentDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBArgumentDefinition.swift; sourceTree = "<group>"; };
+		E7923DAB26AEE7DD0028F6A1 /* ParserError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserError.swift; sourceTree = "<group>"; };
+		E7923DAF26AEE84A0028F6A1 /* FBExpressibleByArgument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBExpressibleByArgument.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,12 +134,20 @@
 		E7923D6F26AEC66E0028F6A1 /* FBArgumentParser */ = {
 			isa = PBXGroup;
 			children = (
+				E7923D7126AEC66E0028F6A1 /* Info.plist */,
 				E7923D7026AEC66E0028F6A1 /* FBArgumentParser.h */,
 				E7923D7B26AEC67C0028F6A1 /* FBOption.swift */,
+				E7923DA326AEE75D0028F6A1 /* FBArgumentDefinition.swift */,
 				E7923D7A26AEC67C0028F6A1 /* FBArgumentsDecoder.swift */,
 				E7923D7826AEC67C0028F6A1 /* FBCommandParser.swift */,
 				E7923D7926AEC67C0028F6A1 /* FBParsableCommand.swift */,
-				E7923D7126AEC66E0028F6A1 /* Info.plist */,
+				E7923D9026AEE4260028F6A1 /* FBArgumentSet.swift */,
+				E7923D9426AEE6D50028F6A1 /* FBSplitArguments.swift */,
+				E7923D9726AEE6E70028F6A1 /* ArgumentValueStorage.swift */,
+				E7923D9C26AEE6F50028F6A1 /* FBInputKey.swift */,
+				E7923DA026AEE73A0028F6A1 /* HelpGenerator.swift */,
+				E7923DAB26AEE7DD0028F6A1 /* ParserError.swift */,
+				E7923DAF26AEE84A0028F6A1 /* FBExpressibleByArgument.swift */,
 			);
 			path = FBArgumentParser;
 			sourceTree = "<group>";
@@ -241,10 +265,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7923DB026AEE84A0028F6A1 /* FBExpressibleByArgument.swift in Sources */,
 				E7923D7E26AEC67C0028F6A1 /* FBArgumentsDecoder.swift in Sources */,
+				E7923DA926AEE7960028F6A1 /* FBArgumentDefinition.swift in Sources */,
+				E7923D9526AEE6D50028F6A1 /* FBSplitArguments.swift in Sources */,
+				E7923DA126AEE73A0028F6A1 /* HelpGenerator.swift in Sources */,
 				E7923D7C26AEC67C0028F6A1 /* FBCommandParser.swift in Sources */,
 				E7923D7F26AEC67C0028F6A1 /* FBOption.swift in Sources */,
+				E7923D9126AEE4260028F6A1 /* FBArgumentSet.swift in Sources */,
+				E7923D9D26AEE6F50028F6A1 /* FBInputKey.swift in Sources */,
+				E7923DAC26AEE7DD0028F6A1 /* ParserError.swift in Sources */,
 				E7923D7D26AEC67C0028F6A1 /* FBParsableCommand.swift in Sources */,
+				E7923D9826AEE6E70028F6A1 /* ArgumentValueStorage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

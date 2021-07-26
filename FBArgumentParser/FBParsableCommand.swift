@@ -28,29 +28,30 @@ public protocol FBParsableCommand: Decodable {
 
 public extension FBParsableCommand {
 
+    static var configuration: FBCommandConfiguration {
+        FBCommandConfiguration(
+            name: String(describing: Self.self).lowercased(),
+            usage: ""
+        )
+    }
+}
+
+public extension FBParsableCommand {
+
     static func main() {
         do {
-            let arguments = CommandLine.arguments.dropFirst() // we always ignore the first one ## TO EXPLICIT ##
-            var command = try parseAsRoot(Array(arguments))
+            var command = try parseAsRoot()
             try command.run()
+        } catch is FBHelpRequested {
+            print(HelpGenerator(self).description)
         } catch {
             print(error.localizedDescription)
             exit(EXIT_FAILURE)
         }
     }
 
-    private static func parseAsRoot(_ arguments: [String]) throws -> FBParsableCommand {
+    private static func parseAsRoot() throws -> FBParsableCommand {
         let parser = FBCommandParser(command: self)
-        return try parser.parse(arguments: arguments)
-    }
-}
-
-public extension FBParsableCommand {
-
-    static var configuration: FBCommandConfiguration {
-        FBCommandConfiguration(
-            name: String(describing: Self.self).lowercased(),
-            usage: ""
-        )
+        return try parser.parse(options: Array(CommandLine.arguments))
     }
 }
