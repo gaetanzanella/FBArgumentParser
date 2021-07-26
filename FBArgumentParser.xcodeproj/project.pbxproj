@@ -76,6 +76,7 @@
 		E7923DA326AEE75D0028F6A1 /* FBArgumentDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBArgumentDefinition.swift; sourceTree = "<group>"; };
 		E7923DAB26AEE7DD0028F6A1 /* ParserError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserError.swift; sourceTree = "<group>"; };
 		E7923DAF26AEE84A0028F6A1 /* FBExpressibleByArgument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBExpressibleByArgument.swift; sourceTree = "<group>"; };
+		E7923DB926AF0BE70028F6A1 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +101,7 @@
 		E750BF66266A1B5800520703 = {
 			isa = PBXGroup;
 			children = (
+				E7923DB926AF0BE70028F6A1 /* README.md */,
 				E7923D4226AEC57B0028F6A1 /* FBRepeat */,
 				E7923D6F26AEC66E0028F6A1 /* FBArgumentParser */,
 				E750BF70266A1B5800520703 /* Products */,
